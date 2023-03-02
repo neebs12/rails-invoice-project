@@ -1,0 +1,37 @@
+<h1>Invoices Here</h1>
+
+<%# buttons %>
+<ul>
+  <li><button type="button">(+ New Invoice)</button></li>
+  <li><button type="button">(+ New Client)</button></li>
+</ul>
+
+<%# list the invoices beneath this line %>
+<table>
+  <tr>
+    <th>Invoice no.</th>
+    <th>Client Email</th>
+    <th>Invoice Total</th>
+    <th>Buttons</th>
+  </tr>
+  <% @invoices.each do |invoice|%>
+    <tr>
+      <th>
+        <%= "INV_#{invoice.id}" %>
+      </th>
+      <th>
+        <%= invoice.client.email %>
+      </th>
+      <th>
+        <% total = 0 %>
+        <% invoice.invoice_items.each do |item| %>
+          <% quantity = item.quantity %>
+          <% price = item.price %>
+          <% total += (quantity * price) %>
+        <% end %>
+        <%= total %>
+      </th>
+      <th><button type="button">📝</button> <button type="button">🗑️</button></th>
+    </tr>
+  <% end %>
+</table>
