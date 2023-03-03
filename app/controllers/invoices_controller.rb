@@ -4,4 +4,8 @@ class InvoicesController < ApplicationController
     # eager loading, essentially a join.
     @invoices = Invoice.includes(:invoice_items ,:client).all
   end
+
+  def show
+    @invoice = Invoice.includes(:invoice_items, :client).find(params[:id])
+  end
 end

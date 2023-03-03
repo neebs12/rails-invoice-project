@@ -17,7 +17,7 @@
   <% @invoices.each do |invoice|%>
     <tr>
       <th>
-        <%= "INV_#{invoice.id}" %>
+        <%= link_to "INV_#{invoice.id}", invoice_path(invoice) %>
       </th>
       <th>
         <%= invoice.client.email %>

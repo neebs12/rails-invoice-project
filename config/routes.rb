@@ -4,4 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root "invoices#index"
+
+  # make CRUD paths available in addition to path helpers
+  resources :invoices
 end
