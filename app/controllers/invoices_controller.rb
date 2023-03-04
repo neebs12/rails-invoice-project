@@ -8,4 +8,12 @@ class InvoicesController < ApplicationController
   def show
     @invoice = Invoice.includes(:invoice_items, :client).find(params[:id])
   end
+
+  def destroy
+    # this receives a DELETE invoice?:id request
+    @invoice = Invoice.find(params[:id])
+    @invoice.destroy
+    # then we go back to the index page
+    redirect_to invoices_path
+  end
 end
