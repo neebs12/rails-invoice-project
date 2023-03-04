@@ -1,6 +1,6 @@
 class Invoice < ApplicationRecord
-  # a client gets deleted, assc. record is destroyed
-  belongs_to :client, dependent: :destroy
-
-  has_many :invoice_items
+  belongs_to :client
+  
+  # associated invoice_items are destroyed when invoice is destroyed
+  has_many :invoice_items, dependent: :destroy
 end
