@@ -1,0 +1,26 @@
+<h1>Creating a new Client!</h1>
+
+<%= form_with model: @client do |form| %>
+  <div>
+    <%= form.label :email %><br>
+    <%= form.text_field :email %>
+    <%# error for clients %>
+    <% if @client.errors.any? %>
+      <% @client.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<hr>
+
+<h2>See Available Clients</h2>
+<ul>
+  <%= render partial: "client", collection: @clients %>
+</ul>
+
