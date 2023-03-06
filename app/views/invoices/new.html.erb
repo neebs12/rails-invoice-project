@@ -3,96 +3,10 @@
 <%= form_for @invoice do |f| %>
   <%= f.label :client_email, 'Client email:' %>
   <%= f.collection_select :client_id, @clients, :id, :email, prompt: 'Select client' %>
-
-  <div id="invoice-items">
-    <%= f.fields_for :invoice_items do |ff| %>
-      <div class="invoice-item">
-        <%= ff.label :service, 'Service:' %>
-        <%= ff.text_field :service %>
-
-        <%= ff.label :quantity, 'Quantity:' %>
-        <%= ff.number_field :quantity %>
-
-        <%= ff.label :price, 'Price:' %>
-        <%= ff.number_field :price, step: 0.01 %>
-
-        <button class="remove-item" type="button">Remove item</button>
-      </div>
+  <% if @invoice.errors.any? %>
+    <% @invoice.errors.full_messages.each do |message| %>
+      <p><%= message %></p>
     <% end %>
-
-    <button class="add-item" type="button">Add item</button>
-  </div>
-
-  <%= f.submit 'Create invoice' %>
+  <% end %>  
+  <%= f.submit 'Create invoice with Client' %>
 <% end %>
-
-<script>
-  const resetInputIdAndName = () => {
-    const invoiceItems = document.querySelectorAll('#invoice-items .invoice-item');
-    invoiceItems.forEach((invoiceItem, index) => {
-      const inputs = invoiceItem.querySelectorAll('input');
-      // by this stage, the expected format for id and name is: 
-      // - "invoice_invoice_items_{number}_service"
-      // - "invoice[invoice_items][{number}][service]"
-      inputs.forEach(input => {
-        // change ids based length of invoice items, changing via increasing number
-        input.id = input.id.replace(/\d+/, index)
-        input.name = input.name.replace(/\d+/, index)
-      });
-    });
-  }
-
-  const removalCBForElm = (elm) => (
-    () => {
-      // dont remove if only one item
-      const myCount = document.querySelectorAll('#invoice-items .invoice-item').length
-
-      myCount > 1 
-        ? elm.remove()
-        : window.alert("Cannot remove last item!")
-    }
-  );  
-  
-  // isolate buttons to attach event listeners
-  const addItemButton = document.querySelector('.add-item');
-  const removeItemButtons = document.querySelectorAll('.remove-item');
-  let counter = 0
-  addItemButton.addEventListener('click', () => {
-    // gets all relevant items of `<div class="invoice-item">`
-    const invoiceItems = document.querySelectorAll('#invoice-items .invoice-item');
-    const finalInvoiceItem = invoiceItems[invoiceItems.length - 1];
-    // create new item
-    const newItem = finalInvoiceItem.cloneNode(true);
-    // reset the values of the inputs
-    newItem.querySelectorAll('input').forEach(input => {
-      input.value = '';
-    });
-    newItem.querySelector('.remove-item').addEventListener('click', removalCBForElm(newItem));
-    newItem.querySelector('.remove-item').addEventListener('click', resetInputIdAndName);
-
-    // append new item to the penultimate position
-    finalInvoiceItem.parentNode.insertBefore(newItem, finalInvoiceItem.nextSibling);
-  });
-
-  addItemButton.addEventListener('click', resetInputIdAndName);
-
-  removeItemButtons.forEach(button => {
-    button.addEventListener('click', event => {
-      removalCBForElm(event.target.parentNode)() // .remove();
-    });
-
-    // for the initial inputs, manipulate the ids and name to include an index of 0
-    const inputs = button.parentNode.querySelectorAll('input');
-    // add an index of 0 to the ids and names
-    // id format is "invoice_invoice_items_service" -> "invoice_invoice_items_0_service"
-    // name formwat is "invoice[invoice_items][price]" -> "invoice[invoice_items][0][price]"
-    inputs.forEach(input => {
-      const tmp = input.id.split("_")
-      tmp.splice(tmp.length - 1, 0, "0")
-      input.id = tmp.join("_")
-      const tmpName = input.name.split("[")
-      tmpName.splice(tmpName.length - 1, 0, "0]")
-      input.name = tmpName.join("[")
-    });
-  });
-</script>

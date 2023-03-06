@@ -18,12 +18,34 @@ class InvoicesController < ApplicationController
   end
 
   def new
-    @clients = Client.all
+    set_clients
     @invoice = Invoice.new
+    @invoice_item = InvoiceItem.new
+    p "render new!!!!!!!!!!"
   end
 
   def create
-    # this receives a POST invoice request, i need to see what its about
-    p params
+    @invoice = Invoice.new(invoice_params)
+
+    if @invoice.save
+      # currenly redirects to the invoices page.
+      redirect_to invoice_path(@invoice)
+    else
+      set_clients
+      render :new, status: :unprocessable_entity
+    end
+
+  end
+
+  # strong parameters
+  private
+  def invoice_params
+    # here, we essentially require the following hash format:
+    # - {..., :invoice}
+    params.require(:invoice).permit(:client_id)
+  end
+
+  def set_clients
+    @clients = Client.all
   end
 end
