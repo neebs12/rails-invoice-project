@@ -29,7 +29,8 @@ class InvoicesController < ApplicationController
 
     if @invoice.save
       # currenly redirects to the invoices page.
-      redirect_to invoice_path(@invoice)
+      # redirect_to invoice_path(@invoice)
+      redirect_to new_invoice_invoice_item_path(@invoice)
     else
       set_clients
       render :new, status: :unprocessable_entity
