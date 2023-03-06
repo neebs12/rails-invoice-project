@@ -20,7 +20,6 @@ class InvoicesController < ApplicationController
   def new
     set_clients
     @invoice = Invoice.new
-    @invoice_item = InvoiceItem.new
     p "render new!!!!!!!!!!"
   end
 
