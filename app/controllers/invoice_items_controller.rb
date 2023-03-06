@@ -9,4 +9,8 @@ class InvoiceItemsController < ApplicationController
 
   def create
   end
+  private
+  def invoice_item_params
+    params.require(:invoice_item).permit(:service, :quantity, :price)
+  end
 end
