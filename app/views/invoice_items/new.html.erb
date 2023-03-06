@@ -1,0 +1,51 @@
+<%# NOTE: Code duplicated from invoices/show.html.erb %>
+<%# - duplication will be addressed with partials ... %>
+<h1>Specific Invoice Here! - Creation</h1>
+
+<h2>Invoice Title: <%= "INV_#{@invoice.id}"%></h2>
+
+<p>Client Email: <%= @invoice.client.email %></p>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Quantity</th>
+    <th>Unit Price ($)</th>
+    <th>Total ($)</th>
+  </tr>
+  <% total = 0 %>
+  <% @invoice.invoice_items.each do |invoice_item| %>
+    <tr>
+      <th><%= invoice_item.service %></th>
+      <th><%= invoice_item.quantity %></th>
+      <th><%= invoice_item.price %></th>
+      <th><%= invoice_item.quantity * invoice_item.price %></th>
+      <% total +=  invoice_item.quantity * invoice_item.price %>
+    </tr>
+  <% end %>
+</table>
+
+<p>Amount due: <%= "$#{total}" %></p>
+
+<%# Here is creation form for the specific item%>
+<h3>Creating a new invoice item</h3>
+<%= form_with model: [@invoice, @invoice.invoice_items.build ] do |form| %>
+  <div>
+    <%= form.label :service %>
+    <%= form.text_field :service %>
+  </div>
+
+  <div>
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity, step: 1 %>
+  </div>
+
+  <div>
+    <%= form.label :price %>
+    <%= form.number_field :price, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
