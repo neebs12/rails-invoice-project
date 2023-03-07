@@ -50,6 +50,8 @@
   </div>
 <% end %>
 
+<%= button_to "(Finished Modifying Invoice 👍)", root_path, method: :get %>
+
 <%# Display all the errors here: %>
 <% if @invoice_item && @invoice_item.errors.any? %>
   <hr>
