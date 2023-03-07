@@ -49,3 +49,14 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<%# Display all the errors here: %>
+<% if @invoice_item && @invoice_item.errors.any? %>
+  <hr>
+  <p>Error Messages</p>
+  <ul>
+    <% @invoice_item.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
