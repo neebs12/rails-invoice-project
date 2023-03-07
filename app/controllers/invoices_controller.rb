@@ -21,4 +21,9 @@ class InvoicesController < ApplicationController
     @clients = Client.all
     @invoice = Invoice.new
   end
+
+  def create
+    # this receives a POST invoice request, i need to see what its about
+    p params
+  end
 end
