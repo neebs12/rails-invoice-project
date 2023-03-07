@@ -5,4 +5,7 @@ class InvoicesController < ApplicationController
     @invoices = Invoice.includes(:invoice_items ,:client).all
   end
 
+  def show
+    @invoice = Invoice.includes(:invoice_items, :client).find(params[:id])
+  end
 end
