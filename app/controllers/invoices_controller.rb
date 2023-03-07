@@ -19,5 +19,6 @@ class InvoicesController < ApplicationController
 
   def new
     @clients = Client.all
+    @invoice = Invoice.new
   end
 end
