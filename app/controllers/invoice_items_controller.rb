@@ -18,9 +18,10 @@ class InvoiceItemsController < ApplicationController
       redirect_to new_invoice_invoice_item_path(params[:invoice_id])
     else
       # render the new page again
-      # render :new, status: :unprocessable_entity
       p ">>> #{params}"
       p ">>> error, unable to save invoice item"
+      @invoice = Invoice.includes(:invoice_items, :client).find(params[:invoice_id])
+      render :new, status: :unprocessable_entity
     end
   end
 
