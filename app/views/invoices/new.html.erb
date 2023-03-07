@@ -1,0 +1,10 @@
+<h1>New Invoice</h1>
+
+<form method="POST" action="/invoices">
+  <label for="client-email">Client email:</label>
+  <select name="client-email" id="client-email">
+    <% @clients.each do |client| %>
+      <option value="<%= client.email %>"><%= client.email %></option>
+    <% end %>
+  </select>
+</form>  
