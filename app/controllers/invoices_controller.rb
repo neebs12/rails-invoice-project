@@ -16,4 +16,8 @@ class InvoicesController < ApplicationController
     # then we go back to the index page
     redirect_to invoices_path
   end
+
+  def new
+    @clients = Client.all
+  end
 end
