@@ -1,10 +1,27 @@
 <h1>New Invoice</h1>
 
-<form method="POST" action="/invoices">
-  <label for="client-email">Client email:</label>
-  <select name="client-email" id="client-email">
-    <% @clients.each do |client| %>
-      <option value="<%= client.email %>"><%= client.email %></option>
+<%= form_for @invoice do |f| %>
+  <%= f.label :client_email, 'Client email:' %>
+  <%= f.collection_select :client_id, @clients, :id, :email, prompt: 'Select client' %>
+
+  <div id="invoice-items">
+    <%= f.fields_for :invoice_items do |ff| %>
+      <div class="invoice-item">
+        <%= ff.label :service, 'Service:' %>
+        <%= ff.text_field :service %>
+
+        <%= ff.label :quantity, 'Quantity:' %>
+        <%= ff.number_field :quantity %>
+
+        <%= ff.label :price, 'Price:' %>
+        <%= ff.number_field :price, step: 0.01 %>
+
+        <button class="remove-item" type="button">Remove item</button>
+      </div>
     <% end %>
-  </select>
-</form>  
+
+    <button class="add-item" type="button">Add item</button>
+  </div>
+
+  <%= f.submit 'Create invoice' %>
+<% end %>
