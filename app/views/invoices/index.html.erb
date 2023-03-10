@@ -7,31 +7,35 @@
 </ul>
 
 <%# list the invoices beneath this line %>
-<table>
-  <tr>
-    <th>Invoice no.</th>
-    <th>Client Email</th>
-    <th>Invoice Total</th>
-    <th>Buttons</th>
-  </tr>
-  <% @invoices.each do |invoice|%>
+<% if @invoices.any? %>
+  <table>
     <tr>
-      <th>
-        <%= link_to "INV_#{invoice.id}", invoice_path(invoice) %>
-      </th>
-      <th>
-        <%= invoice.client.email %>
-      </th>
-      <th>
-        <% total = 0 %>
-        <% invoice.invoice_items.each do |item| %>
-          <% quantity = item.quantity %>
-          <% price = item.price %>
-          <% total += (quantity * price) %>
-        <% end %>
-        <%= total %>
-      </th>
-      <th><button type="button">📝</button> <button type="button">🗑️</button></th>
+      <th>Invoice no.</th>
+      <th>Client Email</th>
+      <th>Invoice Total</th>
+      <th>Buttons</th>
     </tr>
-  <% end %>
-</table>
+    <% @invoices.each do |invoice|%>
+      <tr>
+        <th>
+          <%= link_to "INV_#{invoice.id}", invoice_path(invoice) %>
+        </th>
+        <th>
+          <%= invoice.client.email %>
+        </th>
+        <th>
+          <% total = 0 %>
+          <% invoice.invoice_items.each do |item| %>
+            <% quantity = item.quantity %>
+            <% price = item.price %>
+            <% total += (quantity * price) %>
+          <% end %>
+          <%= total %>
+        </th>
+        <th><button type="button">📝</button> <button type="button">🗑️</button></th>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p>There are no invoices to be displayed. Please create an invoice 🙏 </p>
+<% end %>
