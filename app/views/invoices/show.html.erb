@@ -13,16 +13,14 @@
     <th>Unit Price ($)</th>
     <th>Total ($)</th>
   </tr>
-  <% total = 0 %>
   <% @invoice.invoice_items.each do |invoice_item| %>
     <tr>
       <th><%= invoice_item.service %></th>
       <th><%= invoice_item.quantity %></th>
       <th><%= invoice_item.price %></th>
       <th><%= invoice_item.quantity * invoice_item.price %></th>
-      <% total +=  invoice_item.quantity * invoice_item.price %>
     </tr>
   <% end %>
 </table>
 
-<p>Amount due: <%= "$#{total}" %></p>
+<p>Amount due: <%= "$#{@total}" %></p>

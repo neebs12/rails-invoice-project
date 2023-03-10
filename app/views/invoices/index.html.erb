@@ -24,13 +24,7 @@
           <%= invoice.client.email %>
         </th>
         <th>
-          <% total = 0 %>
-          <% invoice.invoice_items.each do |item| %>
-            <% quantity = item.quantity %>
-            <% price = item.price %>
-            <% total += (quantity * price) %>
-          <% end %>
-          <%= total %>
+          <%= @totals[invoice] %>
         </th>
         <th><button type="button">📝</button> <button type="button">🗑️</button></th>
       </tr>
