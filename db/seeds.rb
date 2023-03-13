@@ -6,17 +6,24 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-# erase all clients (deletetion should cascade to invoices and invoice_items)
+# erase all users (deletetion should cascade to invoices and invoice_items)
+
+User.destroy_all
 Client.destroy_all
 
+# Create some users
+user1 = User.create(email: 'jason@yahoo.com', password: 'seedpassword')
+user2 = User.create(email: 'jason@gmail.com', password: 'seedpassword2')
+
 # Create some clients
-client1 = Client.create(email: 'foo@example.com')
-client2 = Client.create(email: 'bar@example.com')
-client3 = Client.create(email: 'baz@example.com')
+client1 = Client.create(user: user1, email: 'foo@example.com')
+client2 = Client.create(user: user1, email: 'bar@example.com')
+client3 = Client.create(user: user2, email: 'baz@example.com')
+client4 = Client.create(user: user2, email: 'WOOF@example.com')
 
 # Create some invoices for client1
-invoice1 = Invoice.create(client: client1)
-invoice2 = Invoice.create(client: client1)
+invoice1 = Invoice.create(user: user1, client: client1)
+invoice2 = Invoice.create(user: user1, client: client1)
 
 # Create some invoice item(s) for invoice1
 InvoiceItem.create(invoice: invoice1, service: 'Consulting-foo', quantity: 7, price: 100.0)
@@ -26,9 +33,9 @@ InvoiceItem.create(invoice: invoice1, service: 'Training-foo', quantity: 1, pric
 InvoiceItem.create(invoice: invoice2, service: 'Development-foo', quantity: 5, price: 200.0)
 
 # Create some invoices for client2
-invoice3 = Invoice.create(client: client2)
-invoice4 = Invoice.create(client: client2)
-invoice5 = Invoice.create(client: client2)
+invoice3 = Invoice.create(user: user1, client: client2)
+invoice4 = Invoice.create(user: user1, client: client2)
+invoice5 = Invoice.create(user: user1, client: client2)
 
 # Create some invoice items for invoice3
 InvoiceItem.create(invoice: invoice3, service: 'Design', quantity: 8, price: 500.0)
@@ -44,7 +51,7 @@ InvoiceItem.create(invoice: invoice5, service: 'CDKtf', quantity: 7, price: 900.
 InvoiceItem.create(invoice: invoice5, service: 'Actions_Yumml', quantity: 1, price: 1000.01)
 
 # Create some invoices for client3
-invoice6 = Invoice.create(client: client3)
+invoice6 = Invoice.create(user: user2, client: client3)
 
 # Create some invoice items for invoice6
 InvoiceItem.create(invoice: invoice6, service: 'Consulting', quantity: 1, price: 1000.0)
@@ -56,3 +63,12 @@ InvoiceItem.create(invoice: invoice6, service: 'Deployment', quantity: 1, price:
 InvoiceItem.create(invoice: invoice6, service: 'Terraform', quantity: 20, price: 4005.1)
 InvoiceItem.create(invoice: invoice6, service: 'CDKtf', quantity: 12, price: 9001.1)
 InvoiceItem.create(invoice: invoice6, service: 'Actions_Yumml', quantity: 40, price: 10001.1)
+
+# Create some invoices for client4
+invoice7 = Invoice.create(user: user2, client: client4)
+
+# Create some invoice items for invoice7
+InvoiceItem.create(invoice: invoice7, service: 'Testing', quantity: 2, price: 1000.0)
+InvoiceItem.create(invoice: invoice7, service: 'Deployment', quantity: 1, price: 5000.0)
+InvoiceItem.create(invoice: invoice7, service: 'Terraform', quantity: 20, price: 4005.1)
+InvoiceItem.create(invoice: invoice7, service: 'Actions_Yumml', quantity: 40, price: 10001.1)
