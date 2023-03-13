@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_13_000836) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_13_023615) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,9 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_000836) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
-    t.string "phone"
-    t.string "address"
+    t.integer "user_id"
   end
 
   create_table "invoice_items", force: :cascade do |t|
@@ -37,6 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_000836) do
     t.bigint "client_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["client_id"], name: "index_invoices_on_client_id"
   end
 
@@ -52,6 +51,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_000836) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "invoice_items", "invoices", on_delete: :cascade
-  add_foreign_key "invoices", "clients", on_delete: :cascade
+  add_foreign_key "clients", "users"
+  add_foreign_key "invoices", "users"
 end
