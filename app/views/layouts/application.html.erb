@@ -11,9 +11,17 @@
   </head>
 
   <body>
+    <nav><%= link_to "📝Hnry 0.0.0.01", root_path %></nav>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <nav><%= link_to "📝Hnry 0.0.0.01", root_path %></nav>
+
+    <% if user_signed_in? %> 
+      <div> Welcome <%= current_user.email %> </div> 
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+    <% else %>
+      <%= button_to "Sign in", new_user_session_path %> 
+    <% end %>    
+    
     <%= yield %>
   </body>
 </html>
