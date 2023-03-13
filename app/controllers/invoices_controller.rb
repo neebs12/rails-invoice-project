@@ -1,4 +1,6 @@
 class InvoicesController < ApplicationController
+  before_action :authenticate_user!
+
   # both root "invoices#index" and root "articles#index" will map to this controller action
   def index
     # eager loading, essentially a join.
