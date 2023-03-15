@@ -5,7 +5,6 @@ class InvoicesController < ApplicationController
   def index
     # eager loading, essentially a join.
     @invoices = Invoice.includes(:invoice_items ,:client).where(user: current_user)
-    UserMailer.with(user: current_user).send_email.deliver_now
   end
 
   def show

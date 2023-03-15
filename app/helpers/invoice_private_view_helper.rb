@@ -1,0 +1,2 @@
+module InvoicePrivateViewHelper
+end

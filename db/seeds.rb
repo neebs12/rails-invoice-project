@@ -16,7 +16,7 @@ user1 = User.create(email: 'jason@yahoo.com', password: 'seedpassword')
 user2 = User.create(email: 'jason@gmail.com', password: 'seedpassword2')
 
 # Create some clients
-client1 = Client.create(user: user1, email: 'foo@example.com')
+client1 = Client.create(user: user1, email: 'beher80339@kaudat.com')
 client2 = Client.create(user: user1, email: 'bar@example.com')
 client3 = Client.create(user: user2, email: 'baz@example.com')
 client4 = Client.create(user: user2, email: 'WOOF@example.com')
