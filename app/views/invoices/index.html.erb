@@ -26,7 +26,15 @@
         <th>
           <%= @totals[invoice] %>
         </th>
-        <th><button type="button">📝</button> <button type="button">🗑️</button></th>
+        <th>
+          <button type="button">📝</button>
+          <button type="button">🗑️</button>
+          <%= button_to "☁️", send_email_path, mehtod: :post, data: {
+            turbo_confirm: "Are you sure you want to EMAIL☁️ this invoice (#{invoice.id})?"
+          }, params: {
+            invoice_id: invoice.id,
+            client_email: invoice.client.email
+          } %></th>
       </tr>
     <% end %>
   </table>
