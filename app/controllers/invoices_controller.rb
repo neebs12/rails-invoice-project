@@ -15,6 +15,13 @@ class InvoicesController < ApplicationController
     @total = calculate_total(@invoice)
   end
 
+  def send_email
+    client_email = params[:client_email]
+    invoice_id = params[:invoice_id]
+    UserMailer.with(email: client_email, invoice_id: invoice_id).send_email.deliver_later
+    redirect_to root_path
+  end
+
   private
   def calculate_total(invoice)
     total = 0
