@@ -10,7 +10,7 @@
 Client.destroy_all
 
 # Create some clients
-client1 = Client.create(email: 'foo@proton.com', name: 'Forman L. Smith', phone: '555-555-5555', address: '123 Main St.')
+client1 = Client.create(email: 'beher80339@kaudat.com', name: 'Forman L. Smith', phone: '555-555-5555', address: '123 Main St.')
 client2 = Client.create(email: 'bar@gmail.com', name: 'Bar L. Low', phone: '666-666-6665', address: '430 Omapere Boulevard.')
 client3 = Client.create(email: 'baz@ymail.com', name: 'Baz McKensy', phone: '777-777-7775', address: '700 Besttest Av.')
 
