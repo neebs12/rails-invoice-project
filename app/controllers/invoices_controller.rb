@@ -16,9 +16,7 @@ class InvoicesController < ApplicationController
   end
 
   def send_email
-    client_email = params[:client_email]
-    invoice_id = params[:invoice_id]
-    UserMailer.with(email: client_email, invoice_id: invoice_id).send_email.deliver_later
+    UserMailer.with(mailer_params).send_email.deliver_later
     redirect_to root_path
   end
 
@@ -31,5 +29,9 @@ class InvoicesController < ApplicationController
       total += (quantity * price)
     end
     total
+  end
+
+  def mailer_params
+    params.require(:mailer).permit(:email, :invoice_id)
   end
 end
