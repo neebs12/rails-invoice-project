@@ -77,6 +77,6 @@ Rails.application.configure do
     authentication:  'plain',
     enable_starttls: true,
     open_timeout:    5,
-    read_timeout:    5 
-  }    
+    read_timeout:    5
+  }
 end

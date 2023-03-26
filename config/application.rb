@@ -24,7 +24,7 @@ module RailsInvoiceProject
         ENV[key.to_s] = value
       end if File.exists?(env_file)
     end
-  
-    p ">>> Environment variables have been loaded - see ENV['TEST']: #{ENV['TEST']}"     
+
+    p ">>> Environment variables have been loaded - see ENV['TEST']: #{ENV['TEST']}"
   end
 end
