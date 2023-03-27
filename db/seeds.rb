@@ -9,6 +9,10 @@
 # erase all clients (deletetion should cascade to invoices and invoice_items)
 Client.destroy_all
 
+# Create some users
+user1 = User.create(email: 'jason@yahoo.com', password: 'seedpassword')
+user2 = User.create(email: 'jason@gmail.com', password: 'seedpassword2')
+
 # Create some clients
 client1 = Client.create(email: 'beher80339@kaudat.com', name: 'Forman L. Smith', phone: '555-555-5555', address: '123 Main St.')
 client2 = Client.create(email: 'bar@gmail.com', name: 'Bar L. Low', phone: '666-666-6665', address: '430 Omapere Boulevard.')
