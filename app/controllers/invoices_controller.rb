@@ -2,7 +2,9 @@ class InvoicesController < ApplicationController
   # both root "invoices#index" and root "articles#index" will map to this controller action
   def index
     # eager loading, essentially a join.
-    @invoices = Invoice.includes(:invoice_items ,:client).all
+    # @invoices = Invoice.includes(:invoice_items ,:client).all
+    @invoices = Invoice.includes(:invoice_items ,:client).where(user: current_user)
+
     # total calculation, done via accompanying total value. Mapped to the invoice object.
     @totals = {}
     @invoices.each do |invoice|
