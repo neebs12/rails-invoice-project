@@ -10,4 +10,7 @@ Rails.application.routes.draw do
 
   # make CRUD paths available in addition to path helpers
   resources :invoices
+
+  # clients paths are limited to new and create
+  resources :clients, only: [:new, :create]
 end
