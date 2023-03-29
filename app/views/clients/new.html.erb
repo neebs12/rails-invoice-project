@@ -1,0 +1,43 @@
+<nav><%= link_to "< Back", invoices_path %></nav>
+
+<h1>Creating a new Client!</h1>
+
+<%= form_with model: @client do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %> <br>
+
+    <%= form.label :email %>
+    <%= form.text_field :email %> <br>
+
+    <%= form.label :phone %>
+    <%= form.text_field :phone %> <br>
+
+    <%= form.label :address %>
+    <%= form.text_field :address %> <br>
+
+    <%# error for clients %>
+    <% if @client.errors.any? %>
+      <% @client.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div>
+    <br>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<hr>
+
+<h2>See Available Clients</h2>
+<ul>
+  <%# <%= render partial: "client", collection: @clients %>
+  <% @clients.each do |client| %>
+    <li>
+      <%= "#{client.name}: #{client.email}" %>
+    </li>
+  <% end %>
+</ul>
