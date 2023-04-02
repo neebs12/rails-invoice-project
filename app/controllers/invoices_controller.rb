@@ -30,7 +30,7 @@ class InvoicesController < ApplicationController
   def create
     @invoice = Invoice.new(invoice_params.merge(user_id: current_user.id))
     if @invoice.save
-      redirect_to root_path
+      redirect_to new_invoice_invoice_item_path(@invoice)
     else
       @clients = Client.where(user: current_user)
       render :new, static: :unprocessable_entity
