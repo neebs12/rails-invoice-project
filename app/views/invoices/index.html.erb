@@ -2,7 +2,7 @@
 
 <%# buttons %>
 <ul>
-  <li><button type="button">(+ New Invoice)</button></li>
+  <li><%= button_to "(+ New Invoice)", new_invoice_path, method: :get %></li>
   <li><%= button_to "(+ New Client)", new_client_path, method: :get %></li>
 </ul>
 
