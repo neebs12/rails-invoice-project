@@ -1,0 +1,13 @@
+<nav><%= link_to "< Back", invoices_path %></nav>
+<h1>New Invoice</h1>
+
+<%= form_for @invoice do |f| %>
+  <%= f.label :client_email, 'Client name:' %>
+  <%= f.collection_select :client_id, @clients, :id, :name, prompt: 'Select client' %>
+  <% if @invoice.errors.any? %>
+    <% @invoice.errors.full_messages.each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+  <% end %>
+  <%= f.submit 'Create invoice with Client' %>
+<% end %>
