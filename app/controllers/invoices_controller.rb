@@ -30,6 +30,21 @@ class InvoicesController < ApplicationController
     redirect_to root_path
   end
 
+  def new
+    @clients = Client.where(user: current_user)
+    @invoice = Invoice.new
+  end
+
+  def create
+    @invoice = Invoice.new(invoice_params.merge(user_id: current_user.id))
+    if @invoice.save
+      redirect_to root_path
+    else
+      @clients = Client.where(user: current_user)
+      render :new, static: :unprocessable_entity
+    end
+  end
+
   private
   def calculate_total(invoice)
     total = 0
@@ -43,5 +58,9 @@ class InvoicesController < ApplicationController
 
   def mailer_params
     params.require(:mailer).permit(:email, :invoice_id)
+  end
+
+  def invoice_params
+    params.require(:invoice).permit(:client_id)
   end
 end
