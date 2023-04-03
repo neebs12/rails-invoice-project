@@ -17,6 +17,14 @@ class InvoicesController < ApplicationController
     @total = calculate_total(@invoice)
   end
 
+  def destroy
+    # this receives a DELETE invoice/:id request
+    @invoice = Invoice.find(params[:id])
+    @invoice.destroy
+    # then we go back to the index page
+    redirect_to invoices_path
+  end
+
   def send_email
     UserMailer.with(mailer_params).send_email.deliver_later
     redirect_to root_path
